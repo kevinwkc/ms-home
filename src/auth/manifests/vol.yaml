@@ -10,7 +10,7 @@ spec:
     storage: 1Gi
   volumeMode: Filesystem
   accessModes:
-    - ReadWriteMany
+    - ReadOnlyMany
   persistentVolumeReclaimPolicy: Retain
   hostPath:
     path: '/run/desktop/mnt/host/e/pv_mysql'
@@ -22,7 +22,7 @@ metadata:
   name: myclaim
 spec:
   accessModes:
-    - ReadWriteMany
+    - ReadOnlyMany
   resources:
     requests:
       storage: 1Gi
