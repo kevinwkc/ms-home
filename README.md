@@ -1,5 +1,7 @@
-Microservice with Python, Kubernetes  RabbitMQ, MongoDB, and MySQL.
+Home Pricing Microservice with Python, Kubernetes  RabbitMQ, MongoDB, and MySQL.
 =======================================================================
+login -> submit(home) -> rabbitmq -> xgboost(home) -> rabbitmq -> notification
+
 ### Microservice Design Pattern
 Database per Service
 Saga
@@ -22,7 +24,7 @@ RETURN:
 hash token
 eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6Im9iamVjdGRldmVsb3BlckBnbWFpbC5jb20iLCJleHAiOjE3MDA3MDkzNDIsImlhdCI6MTcwMDYyMjk0MiwiYWRtaW4iOnRydWV9.hvDq9JTG_lYvs8tLeS27WiBkHqCTSC0F8LXEAduAvTw
 
-booking
+booking: send out home data for scoring
 ---------------
 curl --resolve 'home.kevin:80:127.0.0.1' -X POST \
   'http://home.kevin/booking' \
@@ -63,7 +65,7 @@ house> db.score.find()
 ]
 
 ```
-pricing
+pricing: using xgboost to predict house price using the intake_id
 ---------------
 
 curl --resolve 'home.kevin:80:127.0.0.1' -X GET -H "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6Im9iamVjdGRldmVsb3BlckBnbWFpbC5jb20iLCJleHAiOjE3MDA3MDY2MDEsImlhdCI6MTcwMDYyMDIwMSwiYWRtaW4iOnRydWV9.T2n3eAUlLE-tyW9BGzCL2gNM2LaNyIrWfE2xwgKO_dU" "http://home.kevin/pricing?intake_id=655d72792e62ed5f25572f2c"
