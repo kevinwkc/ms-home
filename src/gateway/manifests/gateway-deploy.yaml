@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gateway
+  labels:
+    app: gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gateway
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 3
+  template:
+    metadata:
+      labels:
+        app: gateway
+    spec:
+      containers:
+        - name: gateway
+          image: objectdeveloper/gateway
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 250m
+              memory: 256Mi
+          envFrom:
+            - configMapRef:
+                name: gateway-configmap
+            - secretRef:
+                name: gateway-secret
+        - name: mongodb
+          image: mongodb/mongodb-community-server:7.0.1-ubi8
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 250m
+              memory: 400Mi
+          ports:
+            - containerPort: 27017
+          envFrom:
+            - configMapRef:
+                name: gateway-configmap
+            - secretRef:
+                name: gateway-secret
+          volumeMounts:
+          - name: data
+            mountPath: /var/lib/mongo
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: pvc-mongodb

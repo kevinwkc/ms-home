@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth
+  labels:
+    app: auth
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auth
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: auth
+    spec:
+      containers:
+        - name: auth
+          image: objectdeveloper/auth
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 250m
+              memory: 256Mi
+          ports:
+            - containerPort: 5000
+          envFrom:
+            - configMapRef:
+                name: auth-configmap
+            - secretRef:
+                name: auth-secret
+        - name: mysqldb
+          image: mysql/mysql-server:8.0.32-1.2.11-server
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 250m
+              memory: 400Mi
+          ports:
+            - containerPort: 3306
+          envFrom:
+            - configMapRef:
+                name: auth-configmap
+            - secretRef:
+                name: auth-secret
+          volumeMounts:
+          - name: data
+            mountPath: /var/lib/mysql
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: myclaim
+
+

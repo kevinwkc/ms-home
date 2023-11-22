@@ -1,0 +1,5 @@
+venv
+manifests
+Makefile
+test_*.py
+Dockerfile

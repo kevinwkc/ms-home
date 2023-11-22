@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: scorer-configmap
+data:
+  HPRICE_QUEUE: "house_price"
+  HOUSE_QUEUE: "house"
+  MONGODB_HOST: "gateway"
+  RABBITMQ_HOST: "rabbitmq"

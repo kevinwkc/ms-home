@@ -135,3 +135,6 @@ xgb
 venv
 test_*.py
 Makefile
+
+.idea
+notification

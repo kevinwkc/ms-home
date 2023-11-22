@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: scorer
+  labels:
+    app: scorer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: scorer
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 8
+  template:
+    metadata:
+      labels:
+        app: scorer
+    spec:
+      containers:
+        - name: scorer
+          image: objectdeveloper/scorer
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 250m
+              memory: 256Mi
+          envFrom:
+            - configMapRef:
+                name: scorer-configmap
+            - secretRef:
+                name: scorer-secret
