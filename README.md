@@ -2,6 +2,10 @@ Home Pricing Microservice with Python, Kubernetes  RabbitMQ, MongoDB, and MySQL.
 =======================================================================
 login -> submit(home) -> rabbitmq -> xgboost(home) -> rabbitmq -> notification
 
+### Chaos Engineering
+script to test api, db, queue, end-to-end
+https://github.com/kevinwkc/chaos_engineering
+
 ### Microservice Design Pattern
 Database per Service
 Saga
