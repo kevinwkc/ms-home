@@ -1,10 +1,23 @@
 Home Pricing Microservice with Python, Kubernetes  RabbitMQ, MongoDB, and MySQL.
 =======================================================================
-login -> submit(home) -> rabbitmq -> xgboost(home) -> rabbitmq -> notification
+login:token -> submit(home):msg -> rabbitmq(msg) -> xgboost(home):prediction -> rabbitmq(price_pred) -> notification(price_pred)
 
 ### Chaos Engineering
 script to test api, db, queue, end-to-end
-https://github.com/kevinwkc/chaos_engineering
+
+  https://github.com/kevinwkc/chaos_engineering
+
+  Smoke tests validate that your script works and that the system performs adequately under minimal load.
+
+  Average-load test assess how your system performs under expected normal conditions.
+
+  Stress tests assess how a system performs at its limits when load exceeds the expected average.
+
+  Soak tests assess the reliability and performance of your system over extended periods.
+
+  Spike tests validate the behavior and survival of your system in cases of sudden, short, and massive increases in activity.
+
+  Breakpoint tests gradually increase load to identify the capacity limits of the system.
 
 ### Microservice Design Pattern
 Database per Service
