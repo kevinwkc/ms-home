@@ -91,6 +91,9 @@ RETURN:
 {"intake_id":"655d72792e62ed5f25572f2c","price":49.13243865966797}
 
 
+#### FUTURE IMPROVEMENT
+add redis for cache by intake_id
+set TTL to 5 days
 
 
 
