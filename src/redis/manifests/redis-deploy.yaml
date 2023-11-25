@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: myredis
+  name: myredis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myredis
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: myredis
+    spec:
+      containers:
+      - image: redislabs/redis:7.2.4-72
+        name: redis
+        ports:
+          - name: http
+            containerPort: 8443
+          - name: db
+            containerPort: 12000
+
+
