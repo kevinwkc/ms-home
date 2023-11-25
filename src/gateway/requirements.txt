@@ -25,3 +25,4 @@ wrapt==1.13.3
 ipython
 ipdb
 toolz
+redis
